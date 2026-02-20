@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BordMaker : MonoBehaviour
 {
-    [SerializeField]GameObject[] square;
+    [SerializeField]GameObject square;
     GameObject[,] pieces;//オブジェクトを管理する配列
     GameObject[,] bordSprite;//
 
@@ -33,9 +33,9 @@ public class BordMaker : MonoBehaviour
             {
                 Vector3 tr = new(x * masSize, y * masSize, 0);
                 int squareIndex = (x + y) % 2;
-                var workBord = bordSprite[y,x];
-                workBord = Instantiate(square[squareIndex],anker.position + tr,Quaternion.identity,anker);
-                workBord.name = ($"Mas{num}");
+                bordSprite[y,x] = Instantiate(square,anker.position + tr,Quaternion.identity,anker);
+                if(squareIndex == 0) bordSprite[y,x].GetComponent<SpriteRenderer>().color = Color.gray;
+                bordSprite[y,x].name = $"Mas{num}";
                 num++;
             }
         }
